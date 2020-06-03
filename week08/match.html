@@ -1,20 +1,106 @@
 <html>
-    <header></header>
-    <body>
-        <div class="class" id="id">test</div>
-    </body>
-    <script>
-        function match(selector,element){
-            console.log(element.attributes);
-            // 判断selector,element是否为空
-            if(!selector || !element){
+<header></header>
+
+<body>
+    <div class="class" id="id">
+        <div class="test">111</div>
+    </div>
+</body>
+<script>
+
+
+    function matchElement(selector, element, level) {
+
+        let idReg = /\#[a-z]+/
+        let taReg = /\^[a-z]+/
+        let classReg = /\.[a-z]+/
+        let attr = /\[[a-z]+=(([a-z]+)|(\'[a-z]+\')|(\"[a-zA-Z]+\"))\]/
+
+        let allReg = /\#[a-z]+|[a-z]+|\^[a-z]+|\.[a-z]+|\[[a-z]+=(([a-z]+)|(\'[a-z]+\')|(\"[a-zA-Z]+\"))\]/
+
+        let selectorFilter = selector.match(allReg) || []
+        let matchFlag = false
+
+        if (selectorFilter.length == 0) {
+            return false;
+        }
+
+        var getCurrElement = findElement(element, level)
+        console.log("getCurrElement");
+        console.log(getCurrElement);
+        if (getCurrElement == undefined) {
+            return false;
+        }
+        for (let i = 0; i < selectorFilter.length; i++) {
+            if (selectorFilter[i] && selectorFilter[i].charAt(0) == "#") {
+                let idName = selectorFilter[i].replace("#", "");
+                if (idName != getCurrElement.id) {
+                    return false;
+                }
+            } else if (selectorFilter[i] && selectorFilter[i].charAt(0) == ".") {
+                let idName = selectorFilter[i].replace(".", "");
+                if (idName != getCurrElement.className) {
+                    return false;
+                }
+            } else if (selectorFilter[i] && selectorFilter[i].charAt(0) == "[") {
+                // let idName = selectorFilter[i].replace(".","");
+                // if(idName != getCurrElement.attr['class']){
+                //     return false;
+                // }
+            } else {
+                if (selectorFilter[i] && selectorFilter[i] != element.tagName.toLowerCase()) {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    function findElement(ele, level) {
+
+        // while (level > 0) {
+        //     level--;
+        //     console.log("find childNodes");
+
+        // }
+        // console.log(element);
+
+        if (level == 0) {
+
+            return ele
+
+        } else {
+            findElement(ele.children, --level)
+        }
+    }
+    function match(selector, element) {
+        console.log(element.attributes);
+        // 判断selector,element是否为空
+        if (!selector || !element) {
+            return false;
+        }
+
+        // 全部元素匹配
+        if (selector == "*") {
+            return true;
+        }
+
+        // 复杂选择器时,存在父子关系
+        var selectorList = selector.split(" ");
+        for (let i = 0; i < selectorList.length; i++) {
+            let matchResult = matchElement(selectorList[i], element, i);
+
+            if (!matchResult) {
                 return false;
             }
-
-            // 复杂选择器时
-            var selectorList = selector.split(" ");
         }
-        
-        console.log(match("div.class",document.getElementById('id')));
-    </script>
+
+        return true;
+    }
+
+
+    // console.log(match("#app.container", document.getElementById("main")))
+    console.log(match("div.class .test", document.getElementById('id')));
+</script>
+
 </html>
