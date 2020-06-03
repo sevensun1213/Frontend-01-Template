@@ -1,0 +1,20 @@
+<html>
+    <header></header>
+    <body>
+        <div class="class" id="id">test</div>
+    </body>
+    <script>
+        function match(selector,element){
+            console.log(element.attributes);
+            // 判断selector,element是否为空
+            if(!selector || !element){
+                return false;
+            }
+
+            // 复杂选择器时
+            var selectorList = selector.split(" ");
+        }
+        
+        console.log(match("div.class",document.getElementById('id')));
+    </script>
+</html>
