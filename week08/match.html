@@ -11,11 +11,6 @@
 
     function matchElement(selector, element, level) {
 
-        let idReg = /\#[a-z]+/
-        let taReg = /\^[a-z]+/
-        let classReg = /\.[a-z]+/
-        let attr = /\[[a-z]+=(([a-z]+)|(\'[a-z]+\')|(\"[a-zA-Z]+\"))\]/
-
         let allReg = /\#[a-z]+|[a-z]+|\^[a-z]+|\.[a-z]+|\[[a-z]+=(([a-z]+)|(\'[a-z]+\')|(\"[a-zA-Z]+\"))\]/
 
         let selectorFilter = selector.match(allReg) || []
@@ -98,8 +93,6 @@
         return true;
     }
 
-
-    // console.log(match("#app.container", document.getElementById("main")))
     console.log(match("div.class .test", document.getElementById('id')));
 </script>
 
