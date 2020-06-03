@@ -38,3 +38,33 @@ D：标签选择器、伪元素出现总次数
 css伪类？css伪元素？区别
 00：47
 
+#### 3.伪类
+- 链接/行为
+    - ：any-link
+    - :link :visited
+    - :hover
+    - :active
+    - :focus
+    - :target
+- 树结构
+    - ：empty
+    - ：nth-child（）
+    - ：nth-last-child（）
+    - ：first-child :last-child :only-child
+- 逻辑型
+    - ：not
+    - ：where ：has
+#### 4.伪元素
+ - ：：before
+ - ：：after
+ - ：：firstLine
+ - ：：firstLetter
+  
+  可用属性：
+  待截图
+
+  思考：为什么first line 不支持float
+
+
+
+
